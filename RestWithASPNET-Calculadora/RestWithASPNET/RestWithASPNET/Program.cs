@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RestWithASPNET.Business;
+using RestWithASPNET.CrossCutting.Mapper;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
 using RestWithASPNET.Repository.Generic;
@@ -13,6 +14,8 @@ builder.Services.AddControllers();
 // Sempre abaixo do addControllers, Dependency injection
 builder.Services.AddScoped<IRepository<People>, Repository<People>>();
 builder.Services.AddScoped<IPeopleBusiness, PeopleBusiness>();
+
+builder.Services.AddAutoMapper(typeof(EntityToValueObject), typeof(ValueObjectToEntity));
 
 // Registrar dbcontext para acesso ao banco de dados
 var connectionString = builder.Configuration.GetConnectionString("default");

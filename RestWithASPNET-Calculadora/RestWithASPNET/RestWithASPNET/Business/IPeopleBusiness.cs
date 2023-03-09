@@ -1,13 +1,14 @@
-﻿using RestWithASPNET.Models;
+﻿using RestWithASPNET.CrossCutting.ValueObject;
+using RestWithASPNET.Models;
 
 namespace RestWithASPNET.Business
 {
     public interface IPeopleBusiness
     {
-        People Create(People person);
-        People Update(Guid id, People person);
+        PeopleValueObject Create(PeopleValueObject person);
+        PeopleValueObject Update(Guid id, PeopleValueObject person);
         void Delete(Guid id);
-        List<People> Get();
-        People FindById(Guid id);
+        List<PeopleValueObject> Get();
+        PeopleValueObject FindById(Guid id);
     }
 }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
 using RestWithASPNET.Business;
+using RestWithASPNET.CrossCutting.ValueObject;
 
 namespace RestWithASPNET.Controllers
 {
@@ -30,7 +31,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPut("{id:guid}")]
-        public IActionResult Update(Guid id, [FromBody] People person)
+        public IActionResult Update(Guid id, [FromBody] PeopleValueObject person)
         {
             if (person == null || id == Guid.Empty) { return BadRequest(); }
             var result = _business.Update(id, person);
@@ -38,7 +39,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] People person)
+        public IActionResult Create([FromBody] PeopleValueObject person)
         {
             if(person == null) { return BadRequest(); }
             var result = _business.Create(person);
