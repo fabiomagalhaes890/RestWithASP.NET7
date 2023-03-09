@@ -1,4 +1,7 @@
-using RestWithASPNET.Services.People;
+using Microsoft.EntityFrameworkCore;
+using RestWithASPNET.Business;
+using RestWithASPNET.Models;
+using RestWithASPNET.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +10,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Sempre abaixo do addControllers, Dependency injection
-builder.Services.AddScoped<IPeopleService, PeopleService>();
+builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IPeopleBusiness, PeopleBusiness>();
+
+// Registrar dbcontext para acesso ao banco de dados
+var connectionString = builder.Configuration.GetConnectionString("default");
+builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
 //colocar para rodar o versionamento de API
 builder.Services.AddApiVersioning();

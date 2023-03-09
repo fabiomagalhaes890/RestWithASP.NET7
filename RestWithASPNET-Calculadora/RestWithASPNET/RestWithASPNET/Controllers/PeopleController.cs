@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET.Models;
-using RestWithASPNET.Services.People;
+using RestWithASPNET.Repository;
+using RestWithASPNET.Business;
 
 namespace RestWithASPNET.Controllers
 {
@@ -9,20 +10,20 @@ namespace RestWithASPNET.Controllers
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PeopleController : ControllerBase
     {
-        private readonly IPeopleService _service;
+        private readonly IPeopleBusiness _business;
 
-        public PeopleController(IPeopleService service)
+        public PeopleController(IPeopleBusiness service)
         {
-            _service = service;
+            _business = service;
         }
 
         [HttpGet]
-        public IActionResult Get() => Ok(_service.Get());
+        public IActionResult Get() => Ok(_business.Get());
 
         [HttpGet("/{id}")]
         public IActionResult FindById(Guid id)
         {
-            var person = _service.FindById(id);
+            var person = _business.FindById(id);
             if(person == null) NotFound();
 
             return base.Ok(person);
@@ -32,7 +33,7 @@ namespace RestWithASPNET.Controllers
         public IActionResult Update(Guid id, [FromBody] People person)
         {
             if (person == null || id == null) { return BadRequest(); }
-            var result = _service.Update(id, person);
+            var result = _business.Update(id, person);
             return Ok(result);
         }
 
@@ -40,14 +41,14 @@ namespace RestWithASPNET.Controllers
         public IActionResult Create([FromBody] People person)
         {
             if(person == null) { return BadRequest(); }
-            var result = _service.Create(person);
+            var result = _business.Create(person);
             return Ok(result);
         }
 
         [HttpDelete("/{id}")]
         public IActionResult Delete(Guid id)
         {
-            _service.Delete(id);
+            _business.Delete(id);
             return NoContent();
         }
     }    
