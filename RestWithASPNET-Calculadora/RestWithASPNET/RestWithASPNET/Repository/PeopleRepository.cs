@@ -77,7 +77,7 @@ namespace RestWithASPNET.Repository
             return person;
         }
 
-        private bool Exists(Guid id)
+        public bool Exists(Guid id)
         {
             return _context.People.Any(p => p.Id.Equals(id));
         }

@@ -3,7 +3,7 @@ using RestWithASPNET.Repository;
 
 namespace RestWithASPNET.Business
 {
-    public class PeopleBusiness : IPeopleBusiness
+    public class PeopleBusiness : IPeopleBusiness // validacoes de regras de negócio
     {
         private readonly IPeopleRepository _repository;
 

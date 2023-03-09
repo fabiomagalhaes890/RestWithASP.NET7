@@ -4,10 +4,11 @@ namespace RestWithASPNET.Repository
 {
     public interface IPeopleRepository
     {
-        public People Create(People person);
-        public People Update(Guid id, People person);
-        public void Delete(Guid id);
-        public List<People> Get();
-        public People FindById(Guid id);
+        People Create(People person);
+        People Update(Guid id, People person);
+        void Delete(Guid id);
+        List<People> Get();
+        People FindById(Guid id);
+        bool Exists(Guid id);
     }
 }
