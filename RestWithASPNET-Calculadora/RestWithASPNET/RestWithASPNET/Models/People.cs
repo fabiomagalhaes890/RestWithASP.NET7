@@ -1,8 +1,7 @@
 ﻿namespace RestWithASPNET.Models
 {
-    public class People
+    public class People : Entity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
     }
 }

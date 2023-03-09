@@ -22,6 +22,11 @@ builder.Services.AddApiVersioning();
 
 var app = builder.Build();
 
+using (var scope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    scope.ServiceProvider.GetRequiredService<SQLContext>().Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();

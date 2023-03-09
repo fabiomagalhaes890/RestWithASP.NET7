@@ -57,7 +57,7 @@ namespace RestWithASPNET.Repository
 
         public People Update(Guid id, People person)
         {
-            if (!Exists(id)) return new People();
+            if (!Exists(id)) return null;
 
             var result = _context.People.SingleOrDefault(p => p.Id == id);
 
