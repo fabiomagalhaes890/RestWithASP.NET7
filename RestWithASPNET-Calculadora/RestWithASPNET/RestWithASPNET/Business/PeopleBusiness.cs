@@ -1,13 +1,14 @@
 ﻿using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
+using RestWithASPNET.Repository.Generic;
 
 namespace RestWithASPNET.Business
 {
     public class PeopleBusiness : IPeopleBusiness // validacoes de regras de negócio
     {
-        private readonly IPeopleRepository _repository;
+        private readonly IRepository<People> _repository;
 
-        public PeopleBusiness(IPeopleRepository repository) => _repository = repository;
+        public PeopleBusiness(IRepository<People> repository) => _repository = repository;
 
         public People Create(People person) => _repository.Create(person);
 

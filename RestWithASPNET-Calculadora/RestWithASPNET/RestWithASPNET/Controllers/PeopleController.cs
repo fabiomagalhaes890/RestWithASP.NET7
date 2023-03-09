@@ -20,7 +20,7 @@ namespace RestWithASPNET.Controllers
         [HttpGet]
         public IActionResult Get() => Ok(_business.Get());
 
-        [HttpGet("/{id}")]
+        [HttpGet("{id:guid}")]
         public IActionResult FindById(Guid id)
         {
             var person = _business.FindById(id);
@@ -29,10 +29,10 @@ namespace RestWithASPNET.Controllers
             return base.Ok(person);
         }
 
-        [HttpPut("/{id}")]
+        [HttpPut("{id:guid}")]
         public IActionResult Update(Guid id, [FromBody] People person)
         {
-            if (person == null || id == null) { return BadRequest(); }
+            if (person == null || id == Guid.Empty) { return BadRequest(); }
             var result = _business.Update(id, person);
             return Ok(result);
         }

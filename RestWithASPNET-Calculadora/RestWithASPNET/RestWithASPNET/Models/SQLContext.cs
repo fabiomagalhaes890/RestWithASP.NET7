@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using RestWithASPNET.Models.Mappings;
 
 namespace RestWithASPNET.Models
 {
@@ -17,6 +18,11 @@ namespace RestWithASPNET.Models
 
             var connectionString = configuration.GetConnectionString("default");
             optionsBuilder.UseSqlServer(connectionString);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new PeopleMapping());
         }
 
         public DbSet<People> People { get; set; }

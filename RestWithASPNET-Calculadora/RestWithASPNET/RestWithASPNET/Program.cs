@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RestWithASPNET.Business;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
+using RestWithASPNET.Repository.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Sempre abaixo do addControllers, Dependency injection
-builder.Services.AddScoped<IPeopleRepository, PeopleRepository>();
+builder.Services.AddScoped<IRepository<People>, Repository<People>>();
 builder.Services.AddScoped<IPeopleBusiness, PeopleBusiness>();
 
 // Registrar dbcontext para acesso ao banco de dados
@@ -22,7 +23,8 @@ builder.Services.AddApiVersioning();
 
 var app = builder.Build();
 
-using (var scope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+// executa as migrations geradas pelo ef
+using (var scope = app.Services.GetService<IServiceScopeFactory>()!.CreateScope())
 {
     scope.ServiceProvider.GetRequiredService<SQLContext>().Database.Migrate();
 }
