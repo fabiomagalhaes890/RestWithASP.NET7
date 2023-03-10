@@ -6,7 +6,6 @@ using RestWithASPNET.CrossCutting.Hypermedia.Enricher;
 using RestWithASPNET.CrossCutting.Hypermedia.Filters;
 using RestWithASPNET.CrossCutting.Mapper;
 using RestWithASPNET.Models;
-using RestWithASPNET.Repository;
 using RestWithASPNET.Repository.Generic;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +17,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
     .AllowAnyMethod()
     .AllowAnyHeader();
 }));
+
 builder.Services.AddControllers();
 
 // Sempre abaixo do addControllers, Dependency injection
@@ -30,6 +30,7 @@ builder.Services.AddAutoMapper(typeof(EntityToValueObject), typeof(ValueObjectTo
 var connectionString = builder.Configuration.GetConnectionString("default");
 builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
+// dependency injection do hypermedia
 var filterOptions = new HyperMediaFilterOptions();
 filterOptions.ContentReponseEnricherList.Add(new PeopleEnricher());
 
@@ -38,6 +39,7 @@ builder.Services.AddSingleton(filterOptions);
 //colocar para rodar o versionamento de API
 builder.Services.AddApiVersioning();
 
+// configuracao do cabeçalho do swagger json
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1",
@@ -68,18 +70,19 @@ app.UseHttpsRedirection();
 // cors deve ficar depois de httpsredirection e userouting e antes de mapcontrollers
 app.UseCors();
 
-app.UseSwagger(); // gera json com documentacao
-app.UseSwaggerUI(x =>
-{
-    x.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest Api");
-}); // gera pag html acessivel 
+// gera json com documentacao
+app.UseSwagger();
+// gera pag html acessivel 
+app.UseSwaggerUI(x => { x.SwaggerEndpoint("/swagger/v1/swagger.json", "Rest Api"); });
 
+//Configura redirecionamento para swagger
 var option = new RewriteOptions();
 option.AddRedirect("^$", "swagger");
 app.UseRewriter(option);
 
 app.UseAuthorization();
 
+// Configuracao para controle de versao e hateoas
 app.MapControllers();
 app.MapControllerRoute("DefaultApi", "{controller=value}/{id?}");
 
