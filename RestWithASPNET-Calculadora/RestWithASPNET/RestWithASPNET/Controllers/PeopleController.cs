@@ -3,6 +3,7 @@ using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
 using RestWithASPNET.Business;
 using RestWithASPNET.CrossCutting.ValueObject;
+using RestWithASPNET.CrossCutting.Hypermedia.Filters;
 
 namespace RestWithASPNET.Controllers
 {
@@ -19,6 +20,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get() => Ok(_business.Get());
 
         [HttpGet("{id:guid}")]
@@ -31,6 +33,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Update(Guid id, [FromBody] PeopleValueObject person)
         {
             if (person == null || id == Guid.Empty) { return BadRequest(); }
@@ -39,6 +42,7 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Create([FromBody] PeopleValueObject person)
         {
             if(person == null) { return BadRequest(); }

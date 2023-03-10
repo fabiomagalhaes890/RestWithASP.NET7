@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RestWithASPNET.Business;
+using RestWithASPNET.CrossCutting.Hypermedia.Enricher;
+using RestWithASPNET.CrossCutting.Hypermedia.Filters;
 using RestWithASPNET.CrossCutting.Mapper;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
@@ -21,6 +23,11 @@ builder.Services.AddAutoMapper(typeof(EntityToValueObject), typeof(ValueObjectTo
 var connectionString = builder.Configuration.GetConnectionString("default");
 builder.Services.AddDbContext<SQLContext>(options => options.UseSqlServer(connectionString));
 
+var filterOptions = new HyperMediaFilterOptions();
+filterOptions.ContentReponseEnricherList.Add(new PeopleEnricher());
+
+builder.Services.AddSingleton(filterOptions);
+
 //colocar para rodar o versionamento de API
 builder.Services.AddApiVersioning();
 
@@ -39,5 +46,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapControllerRoute("DefaultApi", "{controller=value}/{id?}");
 
 app.Run();
