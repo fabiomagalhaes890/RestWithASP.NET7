@@ -1,14 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
-using RestWithASPNET.Business;
 using RestWithASPNET.CrossCutting.ValueObject;
 using RestWithASPNET.CrossCutting.Hypermedia.Filters;
+using RestWithASPNET.Business;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RestWithASPNET.Controllers
 {
     [ApiVersion("1.0")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PeopleController : ControllerBase
     {

@@ -23,8 +23,7 @@ namespace RestWithASPNET.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PeopleMapping());
+            modelBuilder.ApplyConfiguration(new UserMapping());
         }
-
-        public DbSet<People> People { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace RestWithASPNET.Business
 
         public PeopleValueObject Create(PeopleValueObject person)
         {
-            var entity = _mapper.Map<People>(person);            
+            var entity = _mapper.Map<People>(person);
             var result = _repository.Create(entity);
             return _mapper.Map<PeopleValueObject>(result);
         }
@@ -43,7 +43,7 @@ namespace RestWithASPNET.Business
         {
             var entity = _mapper.Map<People>(person);
             var result = _repository.Update(id, entity);
-            return _mapper.Map<PeopleValueObject>(result);            
+            return _mapper.Map<PeopleValueObject>(result);
         }
     }
 }
