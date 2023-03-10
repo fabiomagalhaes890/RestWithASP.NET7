@@ -12,7 +12,12 @@ using RestWithASPNET.Repository.Generic;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
+{
+    builder.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+}));
 builder.Services.AddControllers();
 
 // Sempre abaixo do addControllers, Dependency injection
@@ -58,8 +63,10 @@ using (var scope = app.Services.GetService<IServiceScopeFactory>()!.CreateScope(
 }
 
 // Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
+
+// cors deve ficar depois de httpsredirection e userouting e antes de mapcontrollers
+app.UseCors();
 
 app.UseSwagger(); // gera json com documentacao
 app.UseSwaggerUI(x =>
