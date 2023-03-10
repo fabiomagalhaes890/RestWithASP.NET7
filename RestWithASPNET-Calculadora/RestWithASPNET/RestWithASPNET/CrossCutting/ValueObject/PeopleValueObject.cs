@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace RestWithASPNET.CrossCutting.ValueObject
+﻿namespace RestWithASPNET.CrossCutting.ValueObject
 {
     public class PeopleValueObject
     {
