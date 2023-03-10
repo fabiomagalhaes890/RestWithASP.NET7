@@ -20,10 +20,18 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<PeopleValueObject>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get() => Ok(_business.Get());
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(200, Type = typeof(PeopleValueObject))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult FindById(Guid id)
         {
             var person = _business.FindById(id);
@@ -33,6 +41,9 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(200, Type = typeof(PeopleValueObject))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Update(Guid id, [FromBody] PeopleValueObject person)
         {
@@ -42,6 +53,9 @@ namespace RestWithASPNET.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(200, Type = typeof(PeopleValueObject))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Create([FromBody] PeopleValueObject person)
         {
