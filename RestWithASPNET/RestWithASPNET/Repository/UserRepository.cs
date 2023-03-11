@@ -1,21 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestWithASPNET.CrossCutting.ValueObject;
 using RestWithASPNET.Models;
+using RestWithASPNET.Repository.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace RestWithASPNET.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
-        private readonly SQLContext _context;
-        private DbSet<User> _dataset;
-
-        public UserRepository(SQLContext context)
-        {
-            _context = context;
-            _dataset = _context.Set<User>();
-        }
+        public UserRepository(SQLContext sqlContext) : base(sqlContext) { }
 
         public User ValidateCredentials(UserValueObject user)
         {
@@ -66,7 +60,5 @@ namespace RestWithASPNET.Repository
             return BitConverter.ToString(hashBytes);
 
         }
-
-        
     }
 }

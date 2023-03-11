@@ -9,6 +9,7 @@ namespace RestWithASPNET.CrossCutting.Mapper
         public EntityToValueObject() 
         {
             CreateMap<People, PeopleValueObject>();
+            CreateMap<User, UserValueObject>();
         }
     }
 }

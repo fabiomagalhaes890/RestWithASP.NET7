@@ -2,6 +2,10 @@
 {
     public class TokenValueObject
     {
+        public TokenValueObject()
+        {
+        }
+
         public TokenValueObject(bool authenticated, string created, string expiration, string accessToken, string refreshToken)
         {
             Authenticated = authenticated;

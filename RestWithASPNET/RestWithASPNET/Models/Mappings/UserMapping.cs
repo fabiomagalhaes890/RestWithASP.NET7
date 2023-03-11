@@ -9,9 +9,10 @@ namespace RestWithASPNET.Models.Mappings
             base.Configure(builder);
             builder.Property(p => p.UserName).IsRequired();
             builder.Property(p => p.FullName).IsRequired();
+            builder.Property(p => p.Email).IsRequired();
             builder.Property(p => p.Password).IsRequired();
             builder.Property(p => p.RefreshToken).IsRequired(false);
-            builder.Property(p => p.RefreshTokenExpiryTime);
+            builder.Property(p => p.RefreshTokenExpiryTime).IsRequired(false);
         }
     }
 }

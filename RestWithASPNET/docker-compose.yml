@@ -1,19 +1,12 @@
 version: '3.4'
-
 services:
   mssql-server:
-    image: mcr.microsoft.com/mssql/server:2019-latest
-#    build:
-#      context: .
-#      dockerfile: db/dockerfile
+    image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "masterkey"
-      MSSQL_PID: Express
+      SA_PASSWORD: "peoPle_db23*$"
     ports:
       - "1433:1433"
-#   volumes:
-#      - C:\meusvolumes\volumes\sqlserver:/var/opt/mssql/data
   rest-with-aspnet:
     image: rest-with-aspnet
     build:
@@ -24,14 +17,7 @@ services:
       DbServer: "mssql-server"
       DbPort: "1433"
       DbUser: "SA"
-      Password: "masterkey"
+      Password: "peoPle_db23*$"
       Database: "peopledb"
     ports:
       - 44300:80
-    depends_on:
-      - mssql-server
-    networks:
-      - asp-network
-networks:
-  asp-network:
-    driver: bridge

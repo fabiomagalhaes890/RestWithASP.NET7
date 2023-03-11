@@ -1,9 +1,10 @@
 ﻿using RestWithASPNET.CrossCutting.ValueObject;
 using RestWithASPNET.Models;
+using RestWithASPNET.Repository.Generic;
 
 namespace RestWithASPNET.Repository
 {
-    public interface IUserRepository
+    public interface IUserRepository : IRepository<User>
     {
         User ValidateCredentials(UserValueObject user);
         User ValidateCredentials(string userName);

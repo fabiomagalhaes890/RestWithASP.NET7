@@ -14,6 +14,7 @@ namespace RestWithASPNET.CrossCutting.Extensions
 
             services.AddScoped<IPeopleBusiness, PeopleBusiness>();
             services.AddScoped<ILoginBusiness, LoginBusiness>();
+            services.AddScoped<IUserBusiness, UserBusiness>();
 
             services.AddTransient<ITokenService, TokenService>();
 
