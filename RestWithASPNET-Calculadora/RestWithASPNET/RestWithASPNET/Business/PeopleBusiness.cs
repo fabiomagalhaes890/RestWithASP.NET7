@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
+using RestWithASPNET.CrossCutting.Hypermedia.Utils;
 using RestWithASPNET.CrossCutting.ValueObject;
 using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
-using RestWithASPNET.Repository.Generic;
+using System.Linq.Expressions;
 
 namespace RestWithASPNET.Business
 {
@@ -51,6 +52,34 @@ namespace RestWithASPNET.Business
             var entity = _mapper.Map<People>(person);
             var result = _repository.Update(id, entity);
             return _mapper.Map<PeopleValueObject>(result);
+        }
+
+        public List<PeopleValueObject> FindByName(string name)
+        {
+            var users = _repository.FindByName(name);
+            return _mapper.Map<List<PeopleValueObject>>(users);
+        }
+
+        public PagedSearchValueObject<PeopleValueObject> FindWithPagedSearch(string name, string sort, int pageSize, int page)
+        {            
+            var size = (pageSize < 1) ? 10 : pageSize;
+            var offset = page > 0 ? (page - 1) * size : 0;
+
+            var result = 
+                string.IsNullOrWhiteSpace(name) 
+                ? _repository.Get().Skip(offset).Take(size).ToList()
+                : _repository.FindWithPagedSearch((p => p.Name.Contains(name)), (p => p.Name), offset, sort, size);
+
+            var total = _repository.GetCount((p => p.Name.Contains(name)));
+
+            return new PagedSearchValueObject<PeopleValueObject>
+            {
+                CurrentPage = offset,
+                List = _mapper.Map<List<PeopleValueObject>>(result),
+                PageSize = size,
+                SortDirections = (!string.IsNullOrWhiteSpace(sort)) && !sort.Equals("desc") ? "asc" : "desc",
+                TotalResults = total
+            };
         }
     }
 }

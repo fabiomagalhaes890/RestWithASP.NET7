@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestWithASPNET.Models;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace RestWithASPNET.Repository.Generic
@@ -85,6 +86,29 @@ namespace RestWithASPNET.Repository.Generic
         public bool Exists(Guid id)
         {
             return _dataset.Any(p => p.Id.Equals(id));
+        }
+
+        public List<TEntity> FindWithPagedSearch(
+            Expression<Func<TEntity, bool>> filter,
+            Expression<Func<TEntity, string>> orderBy, 
+            int skip, 
+            string sort, 
+            int take)
+        {
+            var result = (!string.IsNullOrWhiteSpace(sort)) && !sort.Equals("desc") 
+                ? _dataset.Where(filter).OrderBy(orderBy).ToList()
+                : _dataset.Where(filter).OrderByDescending(orderBy).ToList();
+
+            return result
+                .Skip(skip)
+                .Take(take)
+                .ToList();
+        }
+
+        public int GetCount(Expression<Func<TEntity, bool>> filter)
+        {
+            var result = _dataset.Where(filter).ToList();
+            return result.Count;
         }
     }
 }

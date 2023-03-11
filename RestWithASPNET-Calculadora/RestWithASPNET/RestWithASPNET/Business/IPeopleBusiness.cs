@@ -1,4 +1,6 @@
-﻿using RestWithASPNET.CrossCutting.ValueObject;
+﻿using RestWithASPNET.CrossCutting.Hypermedia.Utils;
+using RestWithASPNET.CrossCutting.ValueObject;
+using RestWithASPNET.Models;
 
 namespace RestWithASPNET.Business
 {
@@ -10,5 +12,7 @@ namespace RestWithASPNET.Business
         List<PeopleValueObject> Get();
         PeopleValueObject FindById(Guid id);
         PeopleValueObject ChangeStatus(Guid id);
+        List<PeopleValueObject> FindByName(string name);
+        PagedSearchValueObject<PeopleValueObject> FindWithPagedSearch(string name, string sortDiretction, int pageSize, int currentPage);
     }
 }

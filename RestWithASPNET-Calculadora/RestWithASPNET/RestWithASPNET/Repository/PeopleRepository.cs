@@ -30,9 +30,13 @@ namespace RestWithASPNET.Repository
             return user;
         }
 
-        public List<People> FindByName(string firstName, string secondName)
+        public List<People> FindByName(string name)
         {
-            //return _dataset.Where(p => p.fir)
+            if(!string.IsNullOrWhiteSpace(name))
+            {
+                return _dataset.Where(p => p.Name.Contains(name)).ToList();
+            }
+
             return null;
         }
     }
