@@ -82,7 +82,7 @@ builder.Services.AddMvc(options =>
 }).AddXmlSerializerFormatters();
 
 //colocar para rodar o versionamento de API
-builder.Services.AddApiVersioning();
+builder.Services.AddApiVersioning(opt => { opt.ReportApiVersions = true; });
 
 // configuracao do cabeçalho do swagger json
 builder.Services.AddSwaggerGen(c =>

@@ -1,10 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using RestWithASPNET.Models;
-using RestWithASPNET.Repository;
-using RestWithASPNET.CrossCutting.ValueObject;
-using RestWithASPNET.CrossCutting.Hypermedia.Filters;
-using RestWithASPNET.Business;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RestWithASPNET.Business;
+using RestWithASPNET.CrossCutting.Hypermedia.Filters;
+using RestWithASPNET.CrossCutting.ValueObject;
 
 namespace RestWithASPNET.Controllers
 {
@@ -34,10 +32,10 @@ namespace RestWithASPNET.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public IActionResult FindById(Guid id)
+        public IActionResult Get(Guid id)
         {
             var person = _business.FindById(id);
-            if(person == null) NotFound();
+            if (person == null) NotFound();
 
             return base.Ok(person);
         }
@@ -61,7 +59,7 @@ namespace RestWithASPNET.Controllers
         [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Create([FromBody] PeopleValueObject person)
         {
-            if(person == null) { return BadRequest(); }
+            if (person == null) { return BadRequest(); }
             var result = _business.Create(person);
             return Ok(result);
         }
@@ -72,5 +70,5 @@ namespace RestWithASPNET.Controllers
             _business.Delete(id);
             return NoContent();
         }
-    }    
+    }
 }

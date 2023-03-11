@@ -7,6 +7,7 @@ namespace RestWithASPNET.CrossCutting.ValueObject
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public List<HyperMediaLink> Links { get ; set; } = new List<HyperMediaLink>();
+        public bool Enabled { get; set; }
+        public List<HyperMediaLink> Links { get; set; } = new List<HyperMediaLink>();
     }
 }

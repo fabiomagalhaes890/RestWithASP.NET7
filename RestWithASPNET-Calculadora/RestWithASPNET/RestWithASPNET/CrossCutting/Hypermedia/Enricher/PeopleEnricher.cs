@@ -26,7 +26,7 @@ namespace RestWithASPNET.CrossCutting.Hypermedia.Enricher
             {
                 Action = HttpActionVerb.POST,
                 Href = link,
-                Rel = RelationType.post, // self?
+                Rel = RelationType.self, // self?
                 Type = ResponseTypeFormat.DefaultPost
             });
 
@@ -34,7 +34,7 @@ namespace RestWithASPNET.CrossCutting.Hypermedia.Enricher
             {
                 Action = HttpActionVerb.PUT,
                 Href = link,
-                Rel = RelationType.put,
+                Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultPut
             });
 
@@ -42,7 +42,7 @@ namespace RestWithASPNET.CrossCutting.Hypermedia.Enricher
             {
                 Action = HttpActionVerb.PATCH,
                 Href = link,
-                Rel = RelationType.patch,
+                Rel = RelationType.self,
                 Type = ResponseTypeFormat.DefaultPatch
             });
 
@@ -50,7 +50,7 @@ namespace RestWithASPNET.CrossCutting.Hypermedia.Enricher
             {
                 Action = HttpActionVerb.DELETE,
                 Href = link,
-                Rel = RelationType.delete,
+                Rel = RelationType.self,
                 Type = "int"
             });
 

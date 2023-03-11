@@ -6,8 +6,8 @@ namespace RestWithASPNET.Repository.Generic
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly SQLContext _context;
-        private DbSet<TEntity> _dataset;
+        protected readonly SQLContext _context;
+        protected DbSet<TEntity> _dataset;
         private string _tableName;
 
         public Repository(SQLContext sqlContext)

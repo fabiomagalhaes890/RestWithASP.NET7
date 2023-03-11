@@ -22,7 +22,7 @@ namespace RestWithASPNET.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [Route("signin")]
-        public IActionResult SignIn([FromBody] UserValueObject user) 
+        public IActionResult SignIn([FromBody] UserValueObject user)
         {
             if (user == null) return BadRequest("Invalid client request");
 
@@ -31,12 +31,12 @@ namespace RestWithASPNET.Controllers
 
             return Ok(token);
         }
-        
+
         [HttpPost]
         [ProducesResponseType(200, Type = typeof(TokenValueObject))]
         [ProducesResponseType(400)]
         [Route("refresh")]
-        public IActionResult Refresh([FromBody] TokenValueObject tokenValueObject) 
+        public IActionResult Refresh([FromBody] TokenValueObject tokenValueObject)
         {
             if (tokenValueObject == null) return BadRequest("Invalid client request");
 
@@ -57,5 +57,5 @@ namespace RestWithASPNET.Controllers
             if (!result) return BadRequest("Invalid client request");
             return NoContent();
         }
-    }    
+    }
 }

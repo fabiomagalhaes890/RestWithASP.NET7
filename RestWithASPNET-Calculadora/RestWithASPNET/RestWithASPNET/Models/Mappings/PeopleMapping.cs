@@ -8,6 +8,7 @@ namespace RestWithASPNET.Models.Mappings
         {
             base.Configure(builder);
             builder.Property(p => p.Name).IsRequired();
+            builder.Property(p => p.Enabled).IsRequired(false);
         }
     }
 }

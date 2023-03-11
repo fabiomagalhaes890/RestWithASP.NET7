@@ -1,5 +1,4 @@
 ﻿using RestWithASPNET.CrossCutting.ValueObject;
-using RestWithASPNET.Models;
 
 namespace RestWithASPNET.Business
 {
@@ -10,5 +9,6 @@ namespace RestWithASPNET.Business
         void Delete(Guid id);
         List<PeopleValueObject> Get();
         PeopleValueObject FindById(Guid id);
+        PeopleValueObject ChangeStatus(Guid id);
     }
 }

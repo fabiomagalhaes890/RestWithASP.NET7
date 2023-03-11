@@ -1,9 +1,7 @@
 ﻿using RestWithASPNET.Business;
 using RestWithASPNET.CrossCutting.Mapper;
 using RestWithASPNET.CrossCutting.Security;
-using RestWithASPNET.Models;
 using RestWithASPNET.Repository;
-using RestWithASPNET.Repository.Generic;
 
 namespace RestWithASPNET.CrossCutting.Extensions
 {
@@ -11,7 +9,7 @@ namespace RestWithASPNET.CrossCutting.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped<IRepository<People>, Repository<People>>();
+            services.AddScoped<IPeopleRepository, PeopleRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IPeopleBusiness, PeopleBusiness>();

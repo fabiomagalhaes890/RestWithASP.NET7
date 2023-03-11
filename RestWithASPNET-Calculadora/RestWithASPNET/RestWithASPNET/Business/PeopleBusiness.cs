@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using RestWithASPNET.CrossCutting.ValueObject;
 using RestWithASPNET.Models;
+using RestWithASPNET.Repository;
 using RestWithASPNET.Repository.Generic;
 
 namespace RestWithASPNET.Business
 {
     public class PeopleBusiness : IPeopleBusiness
     {
-        private readonly IRepository<People> _repository;
+        private readonly IPeopleRepository _repository;
         private readonly IMapper _mapper;
 
         public PeopleBusiness(
-            IRepository<People> repository,
+            IPeopleRepository repository,
             IMapper mapper)
         {
             _repository = repository;
@@ -26,6 +27,12 @@ namespace RestWithASPNET.Business
         }
 
         public void Delete(Guid id) => _repository.Delete(id);
+
+        public PeopleValueObject ChangeStatus(Guid id)
+        {
+            var entity = _repository.ChangeStatus(id);
+            return _mapper.Map<PeopleValueObject>(entity);
+        }
 
         public PeopleValueObject FindById(Guid id)
         {
