@@ -5,14 +5,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using RestWithASPNET.Business;
 using RestWithASPNET.CrossCutting.Configurations;
 using RestWithASPNET.CrossCutting.Extensions;
 using RestWithASPNET.CrossCutting.Hypermedia.Enricher;
 using RestWithASPNET.CrossCutting.Hypermedia.Filters;
-using RestWithASPNET.CrossCutting.Mapper;
 using RestWithASPNET.Models;
-using RestWithASPNET.Repository.Generic;
 using System.Net.Http.Headers;
 using System.Text;
 
@@ -31,7 +28,7 @@ builder.Services.AddAuthentication(opt =>
 })
     .AddJwtBearer(opt =>
     {
-        opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+        opt.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
